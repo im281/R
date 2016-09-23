@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n#Subsetting Data###########################################\n#some data: two datbles appendend on the rows\nfinal <- data.table(rbind(w1,w2))\n\n#search for a column name\nfinal2 <- final[which(final$Name == 'Washington Defense'),]\nfinal2 <- final[which(grepl('Washington Defense',final))]\n\n\n#Search for a partial string\ntest <- final[, final$Name %like% \"Defense\"]\n\n#subset the table with searching\ntest1 <- final[which(final$Name %like% \"Defense\" == FALSE)]\n###########################################################\n\n#Table manipulation########################################\n#add team ID column names (to cbind using column IDs)\np[,\"TeamID\"] <- NA\n\n#get first 7 rows and all columns\nplayers <- players[1:7,]\ndefenses <- defenses[1:7,]\n\n###########################################################\n\n#String manipulation\nn <- paste0('Mohtashemi', ', ', 'Iman')\nn <- paste('Mohtashemi','Iman')\n",
+    "created" : 1474338462874.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2432135873",
+    "id" : "AD163D76",
+    "lastKnownWriteTime" : 1474440504,
+    "last_content_update" : 1474440504997,
+    "path" : "C:/Users/Owner/Source/Repos/R/FantasyFootball/RCheatSheet.R",
+    "project_path" : "RCheatSheet.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
