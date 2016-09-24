@@ -1,5 +1,5 @@
 
-RunOptimizer <- function(x)
+RunOptimizer1 <- function(x)
 {
   library(Rglpk)
   library(data.table)

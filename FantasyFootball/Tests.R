@@ -82,12 +82,12 @@ setkey(defenses,'TeamID')
 
 #join the tables on Team ID. Player and the opposing team
 matrix = merge(players,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(matrix,'ffd2.csv')
+write.csv(matrix,'ffd3.csv')
 
 
 
 #Experiment##########################################################################################################
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-25-16404-players-list.csv'
+path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-25-16406-players-Sun-4PMOnly-list.csv'
 t <- data.table(read.csv(path,stringsAsFactors = FALSE))
 idData<- data.table(read.csv('RotoguruPlayerIds.csv',stringsAsFactors = FALSE))
 
@@ -97,21 +97,67 @@ experiment <- AssignTeamIDs(input)
 setkey(experiment,'TeamID')
 
 myexp <- merge(experiment,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(myexp,'week3Thursexp.csv')
+write.csv(myexp,'week3_4PMOnlyexp.csv')
 #####################################################################################################################
 
 
 
-##TESTS####################################################################################################
+##TESTS############################################################################################################
 
 ffd <- data.table(read.csv('ffd2.csv'))
-myexp <- data.table(read.csv('week3exp.csv'))
+myexp <- data.table(read.csv('Week3_Sun1PMOnly_Predictions.csv'))
 myexp[,"Year"] <- 2016
 
 
 
-data <- data.table(read.csv('Week3ThursPrediction.csv'))
-RunOptimizer(data)
+data <- data.table(read.csv('W3_4PM_P.csv'))
+#get rid of NAs
+run <- data[!is.na(data$Rk)]
+res <- RunOptimizer(run)
+
+
+#onlt numeric columns
+dt <- data1[sapply(data1,is.numeric)]
+cor(dt)
+
+#regression
+# Multiple Linear Regression Example 
+fit <- lm(data$Scored.Labels ~ data$Rk.y + data$Yds.x + data$FD.salary + data$TD.y + $TotPts.y + data$TD.x + data$X3rd.Pct, data=data)
+summary(fit) # show result
+
+# diagnostic plots 
+#layout(matrix(c(1,2,3,4),2,2)) # optional 4 graphs/page 
+plot(fit)
+
+
+
+
+
+
+# Other useful functions 
+coefficients(fit) # model coefficients
+confint(fit, level=0.95) # CIs for model parameters 
+fitted(fit) # predicted values
+residuals(fit) # residuals
+anova(fit) # anova table 
+vcov(fit) # covariance matrix for model parameters 
+influence(fit) # regression diagnostics
+
+
+
+
+
+#example###############
+y <- c(1,2,3,4,5)
+x <-c(1,2,3,4,5)
+fit <- lm(y ~ x)
+summary(fit) # show results
+
+
+
+
+
+######################################################################################################################
 
 
 

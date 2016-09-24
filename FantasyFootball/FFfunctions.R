@@ -138,7 +138,7 @@ AssignTeamIDsDefense <- function(t){
     if(t[i]$Team == 'Cincinnati Bengals'){
       t[i]$TeamID <- 7
     }
-    if(t[i]$Team == 'Clevland Browns'){
+    if(t[i]$Team == 'Cleveland Browns'){
       t[i]$TeamID <- 8
     }
     if(t[i]$Team == 'Dallas Cowboys'){
@@ -262,8 +262,7 @@ ConvertFanduelCSV <- function(t,id){
   
 }
 
-RunOptimizer <- function(x)
-{
+RunOptimizer <- function(x){
   library(Rglpk)
   library(data.table)
   
@@ -318,4 +317,10 @@ RunOptimizer <- function(x)
   View(l)
   return (l)
 }
+
+OptimizeFBLineup <- function(dt){
+  RunOptimizer(dt[!is.na(data$Rk)])
+}
+
 ###############################################################
+
