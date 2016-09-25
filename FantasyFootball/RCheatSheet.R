@@ -29,3 +29,5 @@ defenses <- defenses[1:7,]
 #String manipulation
 n <- paste0('Mohtashemi', ', ', 'Iman')
 n <- paste('Mohtashemi','Iman')
+
+colnames(myexp)[colnames(myexp)=="FD.Points"] <- "FD.points"

@@ -1,8 +1,6 @@
 library(data.table)
 
 
-
-
 #Functions#####################################################
 AssignTeamIDs <- function(t){
   #add team ID column names (to cbind using column IDs)
@@ -167,7 +165,7 @@ AssignTeamIDsDefense <- function(t){
       t[i]$TeamID <- 16
     }
     
-    if(t[i]$Team == 'Los Angeles Rams'){
+    if(t[i]$Team == 'Los Angeles Rams' || t[i]$Team == 'St. Louis Rams'){
       t[i]$TeamID <- 17
     }
     if(t[i]$Team == 'Miami Dolphins'){
@@ -251,8 +249,8 @@ ConvertFanduelCSV <- function(t,id){
         Team = t[i]$Team,
         h.a = 't',
         Oppt = tolower(t[i]$Opponent),
-        FD.points = t[i]$FPPG,
-        FD.salary = t[i]$Salary
+        FD.points = tolower(t[i]$FPPG),
+        FD.salary = tolower(t[i]$Salary)
       ))
     }
   

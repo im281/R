@@ -72,23 +72,21 @@ d <- finalD
 p[,"TeamID"] <- 0
 d[,"TeamID"] <- 0
 
-
 players <- AssignTeamIDs(p)
 defenses <- AssignTeamIDsDefense(d)
 
 setkey(players,'TeamID')
 setkey(defenses,'TeamID')
 
-
 #join the tables on Team ID. Player and the opposing team
 matrix = merge(players,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(matrix,'ffd3.csv')
-
-
+write.csv(matrix,'ffd4.csv')
 
 #Experiment##########################################################################################################
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-25-16406-players-Sun-4PMOnly-list.csv'
+path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-25-16408-players-SunMonNight-list.csv'
 t <- data.table(read.csv(path,stringsAsFactors = FALSE))
+# remove injured players
+t <- t[which(t$Injury.Indicator == "")]
 idData<- data.table(read.csv('RotoguruPlayerIds.csv',stringsAsFactors = FALSE))
 
 input <- ConvertFanduelCSV(t,idData)
@@ -97,32 +95,32 @@ experiment <- AssignTeamIDs(input)
 setkey(experiment,'TeamID')
 
 myexp <- merge(experiment,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(myexp,'week3_4PMOnlyexp.csv')
+#rename points and salary columns
+colnames(myexp)[colnames(myexp)=="FD.Points"] <- "FD.points"
+colnames(myexp)[colnames(myexp)=="FD.Salary"] <- "FD.salary"
+write.csv(myexp,'Week3_SunMonNight_Exp.csv')
+UploadToMLStudio(myexp,'name.csv')
 #####################################################################################################################
 
+#Optimize the lineup##############################################################
+#csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
+csvFile <- 'W3_SunMonNight_P.csv'
+data <- data.table(read.csv(csvFile))
+d <- OptimizeFBLineup(data)
 
 
 ##TESTS############################################################################################################
 
-ffd <- data.table(read.csv('ffd2.csv'))
-myexp <- data.table(read.csv('Week3_Sun1PMOnly_Predictions.csv'))
-myexp[,"Year"] <- 2016
-
-
-
-data <- data.table(read.csv('W3_4PM_P.csv'))
-#get rid of NAs
-run <- data[!is.na(data$Rk)]
-res <- RunOptimizer(run)
-
 
 #onlt numeric columns
-dt <- data1[sapply(data1,is.numeric)]
+dt <- data[sapply(data,is.numeric)]
 cor(dt)
 
 #regression
 # Multiple Linear Regression Example 
-fit <- lm(data$Scored.Labels ~ data$Rk.y + data$Yds.x + data$FD.salary + data$TD.y + $TotPts.y + data$TD.x + data$X3rd.Pct, data=data)
+fit <- lm(data$Scored.Labels ~ data$Rk.y + data$Yds.x + data$FD.salary + 
+            data$TD.y + data$TotPts.y + data$TD.x + data$X3rd.Pct + data$Att.x + 
+            data$Yds.G.x,data=data)
 summary(fit) # show result
 
 # diagnostic plots 
