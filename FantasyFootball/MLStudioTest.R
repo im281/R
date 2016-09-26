@@ -1,6 +1,7 @@
 library(RCurl)
 library(rjson)
 library(rlist)
+library(data.table)
 
 # Accept SSL certificates issued by public Certificate Authorities
 options(RCurlOptions = list(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")))
@@ -53,12 +54,23 @@ dt <- data.table(data.frame(matrix(unlist(fromJSON(result)), nrow=214, byrow=T),
 t <- data.table(unlist(fromJSON(result)))
 t <- fromJSON(result)
 
-v <- data.table(unlist(t$Results$`FP Predictions`$value$Values))
 n <- data.table(unlist(t$Results$`FP Predictions`$value$ColumnNames))
-r <- cbind(v,n)
+v <- data.table(unlist(t$Results$`FP Predictions`$value$Values))
+
+r <- rbind(v,n)
 View(r)
 
-v <- data.table(t$Results$`FP Predictions`$value$Values)
+m <- data.table(data.frame(matrix(0, ncol = 71, nrow = 0)))
+colnames(m) <- t$Results$`FP Predictions`$value$ColumnNames
+values <- t$Results$`FP Predictions`$value$Values
+
+dt <- data.table(values[[1]])
+dt <- t(dt)
+
+test <- rbind(m,dt)
+
+View(test)
+
 
 x <- list(p1 = list(type='A',score=list(c1=10,c2=8)),
           p2 = list(type='B',score=list(c1=9,c2=9)),
@@ -67,6 +79,5 @@ list.table(x, type)
 list.table(x, type, c1 = score$c1)
 list.table(x, type, score$c1, table.args = list(dnn=c('type','c1')))
 
-
-
+df <- data.frame(matrix(unlist(t$Results$`FP Predictions`$value$ColumnNames), nrow=71, byrow=T),stringsAsFactors=FALSE)
             

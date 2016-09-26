@@ -15,5 +15,21 @@ UploadToMLStudio <- function(dt,name){
   
 }
 
+ParsePredictionResults <- function(l){
+ 
+  m <- data.table(data.frame(matrix(0, ncol = 71, nrow = 0)))
+  colnames(m) <- l$Results$`FP Predictions`$value$ColumnNames
+  values <- l$Results$`FP Predictions`$value$Values
+  
+  dt <- data.table(values[[1]])
+  dt <- t(dt)
+  
+  return (dt)
+
+  }
+
+  
+
+
 
 

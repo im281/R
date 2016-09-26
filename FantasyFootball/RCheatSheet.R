@@ -24,6 +24,11 @@ p[,"TeamID"] <- NA
 players <- players[1:7,]
 defenses <- defenses[1:7,]
 
+#create a table with 71 columns
+#add the column names from a list
+m <- data.table(data.frame(matrix(0, ncol = 71, nrow = 0)))
+colnames(m) <- t$Results$`FP Predictions`$value$ColumnNames
+
 ###########################################################
 
 #String manipulation
