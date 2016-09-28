@@ -39,7 +39,7 @@ AssignTeamIDs <- function(t){
     if(t[i]$Team == 'Detroit Lions' || t[i]$Oppt == 'det'){
       t[i]$TeamID <- 11
     }
-    if(t[i]$Team == 'Green Bay Packers' || t[i]$Oppt == 'gnb'){
+    if(t[i]$Team == 'Green Bay Packers' || t[i]$Oppt == 'gnb' || t[i]$Oppt == 'gb'){
       t[i]$TeamID <- 12
     }
     if(t[i]$Team == 'Houston Texans' || t[i]$Oppt == 'hou'){
@@ -49,15 +49,15 @@ AssignTeamIDs <- function(t){
     if(t[i]$Team == 'Indianapolis Colts' || t[i]$Oppt == 'ind'){
       t[i]$TeamID <- 14
     }
-    if(t[i]$Team == 'Jacksonville Jaguars' || t[i]$Oppt == 'jac'){
+    if(t[i]$Team == 'Jacksonville Jaguars' || t[i]$Oppt == 'jac' || t[i]$Oppt == 'jax' ){
       t[i]$TeamID <- 15
     }
-    if(t[i]$Team == 'Kansas City Chiefs' || t[i]$Oppt == 'kan'){
+    if(t[i]$Team == 'Kansas City Chiefs' || t[i]$Oppt == 'kan' || t[i]$Oppt == 'kc'){
       t[i]$TeamID <- 16
     }
     
     # thre rest
-    if(t[i]$Team == 'Los Angeles Rams' || t[i]$Oppt == 'lar'){
+    if(t[i]$Team == 'Los Angeles Rams' || t[i]$Oppt == 'lar' || t[i]$Oppt == 'la'){
       t[i]$TeamID <- 17
     }
     if(t[i]$Team == 'Miami Dolphins' || t[i]$Oppt == 'mia'){
@@ -66,10 +66,10 @@ AssignTeamIDs <- function(t){
     if(t[i]$Team == 'Minnesota Vikings' || t[i]$Oppt== 'min'){
       t[i]$TeamID <- 19
     }
-    if(t[i]$Team == 'New England Patriots' || t[i]$Oppt == 'nwe'){
+    if(t[i]$Team == 'New England Patriots' || t[i]$Oppt == 'nwe' || t[i]$Oppt == 'ne'){
       t[i]$TeamID <- 20
     }
-    if(t[i]$Team == 'New Orleans Saints' || t[i]$Oppt == 'nor'){
+    if(t[i]$Team == 'New Orleans Saints' || t[i]$Oppt == 'nor' || t[i]$Oppt == 'no'){
       t[i]$TeamID <- 21
     }
     if(t[i]$Team == 'New York Giants' || t[i]$Oppt == 'nyg'){
@@ -88,17 +88,17 @@ AssignTeamIDs <- function(t){
     if(t[i]$Team == 'Pittsburgh Steelers' || t[i]$Oppt == 'pit'){
       t[i]$TeamID <- 26
     }
-    if(t[i]$Team == 'San Diego Chargers' || t[i]$Oppt == 'sdg'){
+    if(t[i]$Team == 'San Diego Chargers' || t[i]$Oppt == 'sdg' || t[i]$Oppt == 'sd'){
       t[i]$TeamID <- 27
     }
-    if(t[i]$Team == 'San Francisco 49ers' || t[i]$Oppt == 'sfo'){
+    if(t[i]$Team == 'San Francisco 49ers' || t[i]$Oppt == 'sfo' || t[i]$Oppt == 'sf'){
       t[i]$TeamID <- 28
     }
     if(t[i]$Team == 'Seattle Seahawks' || t[i]$Oppt == 'sea'){
       t[i]$TeamID <- 29
     }
     ###TODO
-    if(t[i]$Team == 'Tampa Bay Buccaneers' || t[i]$Oppt == 'tam'){
+    if(t[i]$Team == 'Tampa Bay Buccaneers' || t[i]$Oppt == 'tam' || t[i]$Oppt == 'tb'){
       t[i]$TeamID <- 30
     }
     if(t[i]$Team == 'Tennessee Titans' || t[i]$Oppt == 'ten'){
@@ -318,6 +318,18 @@ RunOptimizer <- function(x){
 
 OptimizeFBLineup <- function(dt){
   RunOptimizer(dt[!is.na(data$Rk)])
+}
+
+
+FormatNames <- function(statstable) {
+  for(i in 1:nrow(statstable)){
+    x <- strsplit(statstable[i]$Name, " ")
+    y <- strsplit(x[[1]], " ")
+    statstable[i]$Name <- paste0(y[2], ', ', y[1])
+  }
+  test = 0
+  return(statstable)
+ 
 }
 
 ###############################################################

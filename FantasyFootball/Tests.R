@@ -4,6 +4,7 @@ source('FootballOptimizer.R')
 
 #fanduel data http://rotoguru1.com/cgi-bin/fyday.pl?week=1&game=fd&scsv=1
 #2015 stats
+#Training#
 #read the player FFP tables######################################################################################
 w1 <- read.csv('C:/Users/Owner/Source/Repos/R/FantasyFootball/2015/Week1.txt', sep = ';',stringsAsFactors = FALSE)
 w2 <- read.csv('C:/Users/Owner/Source/Repos/R/FantasyFootball/2015/Week2.txt', sep = ';',stringsAsFactors = FALSE)
@@ -29,13 +30,16 @@ w17 <- read.csv('C:/Users/Owner/Source/Repos/R/FantasyFootball/2015/Week17.txt',
 #2016 stats########################################################################################################
 w18 <- read.csv('Week1.txt', sep = ';',stringsAsFactors = FALSE)
 w19 <- read.csv('Week2.txt', sep = ';',stringsAsFactors = FALSE)
+w20 <- read.csv('Week3.txt', sep = ';',stringsAsFactors = FALSE)
 ###################################################################################################################
 
-#append the tables on thh row
-p <- data.table(rbind(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16,w17,w18,w19))
+#append the tables on the row
+p <- data.table(rbind(w1,w2,w3,w4,w5,w6,w7,w8,w9,w10,w11,w12,w13,w14,w15,w16,w17,w18,w19,w20))
 
 #subset the player tables so it doesn't contain defensive data
 p <- p[which(p$Name %like% "Defense" == FALSE)]
+
+#add offensive stats per player to the table for each player
 
 #read the multidimensional defense tables
 #NFL stats page http://www.nfl.com/stats/team?seasonId=2015&seasonType=REG&Submit=Go
@@ -75,15 +79,18 @@ d[,"TeamID"] <- 0
 players <- AssignTeamIDs(p)
 defenses <- AssignTeamIDsDefense(d)
 
-setkey(players,'TeamID')
-setkey(defenses,'TeamID')
+# setkey(players,'TeamID')
+# setkey(defenses,'TeamID')
 
 #join the tables on Team ID. Player and the opposing team
 matrix = merge(players,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(matrix,'ffd4.csv')
+write.csv(matrix,'ffd6.csv')
+UploadToMLStudio(myexp,'ffd6.csv')
+
+#End Training
 
 #Experiment##########################################################################################################
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-25-16408-players-SunMonNight-list.csv'
+path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-26-16409-Mon-Thurs-players-list.csv'
 t <- data.table(read.csv(path,stringsAsFactors = FALSE))
 # remove injured players
 t <- t[which(t$Injury.Indicator == "")]
@@ -92,25 +99,28 @@ idData<- data.table(read.csv('RotoguruPlayerIds.csv',stringsAsFactors = FALSE))
 input <- ConvertFanduelCSV(t,idData)
 input[,"TeamID"] <- 0
 experiment <- AssignTeamIDs(input)
-setkey(experiment,'TeamID')
+#setkey(experiment,'TeamID')
 
 myexp <- merge(experiment,defenses, by='TeamID',allow.cartesian = TRUE)
 #rename points and salary columns
 colnames(myexp)[colnames(myexp)=="FD.Points"] <- "FD.points"
 colnames(myexp)[colnames(myexp)=="FD.Salary"] <- "FD.salary"
-write.csv(myexp,'Week3_SunMonNight_Exp.csv')
-UploadToMLStudio(myexp,'name.csv')
+write.csv(myexp,'Week4_MonTHurs_Exp.csv')
+UploadToMLStudio(myexp,'Week4_MonTHurs_Exp.csv')
 #####################################################################################################################
 
 #Optimize the lineup##############################################################
 #csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
-csvFile <- 'W3_SunMonNight_P.csv'
+csvFile <- 'W4_MonThurs_P.csv'
 data <- data.table(read.csv(csvFile))
 d <- OptimizeFBLineup(data)
 
 
 ##TESTS############################################################################################################
 
+
+po <- data.table(read.csv('2016PassO.txt', sep = "\t"))
+View(po)
 
 #onlt numeric columns
 dt <- data[sapply(data,is.numeric)]
