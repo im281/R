@@ -46,8 +46,8 @@ AssignTeamIDs <- function(t){
       t[i]$TeamID <- 13
     }
     ###TODO
-    if(t[i]$Team == 'Indianapolis Colts' || t[i]$Oppt == 'ind'){
-      t[i]$TeamID <- 14
+     if(t[i]$Team == 'Indianapolis Colts' || t[i]$Oppt == 'ind'){
+       t[i]$TeamID <- 14
     }
     if(t[i]$Team == 'Jacksonville Jaguars' || t[i]$Oppt == 'jac' || t[i]$Oppt == 'jax' ){
       t[i]$TeamID <- 15
@@ -266,11 +266,8 @@ RunOptimizer <- function(x){
   
   final <- x
   num.players = length(final$GID)
+  final <- final[which(final$Pos != 0)]
   
-  #final <- d[which(d$Injury.Indicator != 'O'),]
-  
-  
-  #final <- read.csv('FanDuel-NFL-2016-09-19-16371-players-list.csv')
   
   # objective:
   obj <- final$Scored.Labels
@@ -316,10 +313,130 @@ RunOptimizer <- function(x){
   return (l)
 }
 
+RunOptimizer1 <- function(x){
+  library(Rglpk)
+  library(data.table)
+  
+  final <- x
+  final <- final[which(final$Pos != 0)]
+  num.players = length(final$GID)
+  
+  #final <- d[which(d$Injury.Indicator != 'O'),]
+  
+  
+  #final <- read.csv('FanDuel-NFL-2016-09-19-16371-players-list.csv')
+  
+  # objective:
+  obj <- final$Scored.Labels
+  # the vars are represented as booleans
+  var.types <- rep("B", num.players)
+  # the constraints
+  matrix <- rbind(
+    as.numeric(final$Pos == "QB"), # num QB
+    as.numeric(final$Pos == "RB"), # num RB
+    as.numeric(final$Pos == "WR"), # num WR
+    as.numeric(final$Pos == "TE"), # num TE
+    as.numeric(final$Pos == "PK"),  # num K
+    #as.numeric(final$Position == "D"),  # num DE
+    final$FD.salary
+  )                       # total cost
+  direction <- c("==",
+                 "==",
+                 "==",
+                 "==",
+                 "==",
+                 #"==",
+                 "<=")
+  rhs <- c(1, # Quartbacks
+           2, # RB Min
+           3, # WR Min
+           1, # TE Min
+           1, # K Max
+           #1, # Defense
+           55000)                # By default, you get 60K to spend, so leave this number alone. but save 5k for a defense
+  
+  sol <-
+    Rglpk_solve_LP(
+      obj = obj, mat = matrix, dir = direction, rhs = rhs,
+      types = var.types, max = TRUE
+    )
+  
+  opt <- data.table(unlist(sol[2]))
+  
+  d <- data.table(cbind(opt,final))
+  
+  l <- d[d$V1 != 0]
+  View(l)
+  return (l)
+}
+
+RunDFOptimizer <- function(x){
+  library(Rglpk)
+  library(data.table)
+
+  x1 <- x[which(x$Pos != 0)]
+  num.players = length(x1$GID)
+  
+  #final <- d[which(d$Injury.Indicator != 'O'),]
+  
+  
+  #final <- read.csv('FanDuel-NFL-2016-09-19-16371-players-list.csv')
+  
+  # objective:
+  obj <- x1$Scored.Label.Mean
+  # the vars are represented as booleans
+  var.types <- rep("B", num.players)
+  # the constraints
+  matrix <- rbind(
+    as.numeric(x1$Pos == "QB"), # num QB
+    as.numeric(x1$Pos == "RB"), # num RB
+    as.numeric(x1$Pos == "WR"), # num WR
+    as.numeric(x1$Pos == "TE"), # num TE
+    as.numeric(x1$Pos == "K"),  # num K
+    #as.numeric(final$Position == "D"),  # num DE
+    x1$FD.salary
+  )                       # total cost
+  direction <- c("==",
+                 "==",
+                 "==",
+                 "==",
+                 "==",
+                 #"==",
+                 "<=")
+  rhs <- c(1, # Quartbacks
+           2, # RB Min
+           3, # WR Min
+           1, # TE Min
+           1, # K Max
+           #1, # Defense
+           55000)                # By default, you get 60K to spend, so leave this number alone. but save 5k for a defense
+  
+  sol <-
+    Rglpk_solve_LP(
+      obj = obj, mat = matrix, dir = direction, rhs = rhs,
+      types = var.types, max = TRUE
+    )
+  
+  opt <- data.table(unlist(sol[2]))
+  
+  d <- data.table(cbind(opt,x1))
+  
+  l <- d[d$V1 != 0]
+  View(l)
+  return (l)
+}
+
 OptimizeFBLineup <- function(dt){
   RunOptimizer(dt[!is.na(data$Rk)])
 }
 
+OptimizeFBLineup1 <- function(dt){
+  RunOptimizer1(dt[!is.na(data$Rk)])
+}
+
+OptimizeFBLineupDFPredicted <- function(dt){
+  RunDFOptimizer(dt[!is.na(data$Rk)])
+}
 
 FormatNames <- function(statstable) {
   for(i in 1:nrow(statstable)){
@@ -332,5 +449,100 @@ FormatNames <- function(statstable) {
  
 }
 
+FormatStatsTable <-function(statstable){
+  statstable$Oppt <- ""
+  for(i in 1:nrow(statstable)){
+    x <- strsplit(statstable[i]$Opp, ' ')
+    y <-  tolower(strsplit(x[[1]]," " ))
+    statstable[i]$Oppt <- y[2]
+  }
+  test = 0
+  return(statstable)
+}
+
 ###############################################################
+
+AssignTeamIDs1 <- function(t){
+  #add team ID column names (to cbind using column IDs)
+  
+  temp1 <- t[which(t$Oppt == 'ari')]
+  temp1$TeamID <- 1
+  temp2 <- t[which(t$Oppt == 'atl')]
+  temp2$TeamID <- 2
+  temp3 <- t[which(t$Oppt == 'bal')]
+  temp3$TeamID <- 3
+  temp4 <- t[which(t$Oppt == 'buf')]
+  temp4$TeamID <- 4
+  temp5 <- t[which(t$Oppt == 'car')]
+  temp5$TeamID <- 5
+  temp6 <- t[which(t$Oppt == 'chi')]
+  temp6$TeamID <- 6
+  temp7 <- t[which(t$Oppt == 'cin')]
+  temp7$TeamID <- 7
+  temp8 <- t[which(t$Oppt == 'cle')]
+  temp8$TeamID <- 8
+  
+  
+  temp9 <- t[which(t$Oppt == 'dal')]
+  temp9$TeamID <- 9
+  temp10 <- t[which(t$Oppt == 'den')]
+  temp10$TeamID <- 10
+  temp11 <- t[which(t$Oppt == 'gnb' || t$Oppt == 'gb')]
+  temp11$TeamID <- 11
+  temp12 <- t[which(t$Oppt == 'hou')]
+  temp12$TeamID <- 12
+  temp13 <- t[which(t$Oppt == 'ind')]
+  temp13$TeamID <- 13
+  temp14 <- t[which(t$Oppt == 'jac' || t$Oppt == 'jax')]
+  temp14$TeamID <- 14
+  temp15 <- t[which(t$Oppt == 'kan' || t$Oppt == 'kc')]
+  temp15$TeamID <- 15
+  temp16 <- t[which(t$Oppt == 'lar' || t$Oppt == 'la')]
+  temp16$TeamID <- 16
+  
+  temp17 <- t[which(t$Oppt == 'mia')]
+  temp17$TeamID <- 17
+  temp18 <- t[which(t$Oppt == 'min')]
+  temp18$TeamID <- 18
+  temp19 <- t[which(t$Oppt == 'gnb' || t$Oppt == 'gb')]
+  temp19$TeamID <- 19
+  temp20 <- t[which(t$Oppt == 'nwe' || t$Oppt == 'ne')]
+  temp20$TeamID <- 20
+  temp21 <- t[which( t$Oppt == 'nor' || t$Oppt == 'no')]
+  temp21$TeamID <- 21
+  temp22 <- t[which(t$Oppt == 'nyg')]
+  temp22$TeamID <- 22
+  temp23 <- t[which(t[i]$Oppt == 'nyj')]
+  temp23$TeamID <- 23
+  temp24 <- t[which(t[i]$Oppt == 'oak')]
+  temp24$TeamID <- 24
+  
+  
+  temp25 <- t[which(t$Oppt == 'phi')]
+  temp25$TeamID <- 25
+  temp26 <- t[which(t$Oppt == 'pit')]
+  temp26$TeamID <- 26
+  temp27 <- t[which(t$Oppt == 'sdg' || t$Oppt == 'sd')]
+  temp27$TeamID <- 27
+  temp28 <- t[which(t$Oppt == 'sfo' || t$Oppt == 'sf')]
+  temp28$TeamID <- 28
+  temp29 <- t[which(t$Oppt == 'sea')]
+  temp29$TeamID <- 29
+  temp30 <- t[which(t$Oppt == 'tam' || t$Oppt == 'tb')]
+  temp30$TeamID <- 30
+  temp31 <- t[which(t$Oppt == 'ten')]
+  temp31$TeamID <- 31
+  temp32 <- t[which(t$Oppt == 'was')]
+  temp32$TeamID <- 32
+  
+  
+  t <- rbind(temp1,temp2,temp3,temp4,temp5,temp6,temp7,
+             temp8,temp9,temp10,temp11,temp12,temp13,temp14,
+             temp15,temp16,temp17,temp18,temp19,temp20,temp21,
+             temp22,temp23,temp24,temp25,temp26,temp27,temp28,
+             temp29,temp30,temp31,temp32)
+
+  
+  return (t)
+}
 

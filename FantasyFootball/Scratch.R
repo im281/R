@@ -119,7 +119,7 @@ brees <-  p[which(p$Name == 'Brees, Drew')]
 
 x <- strsplit(breesstats$Name," ")
 y <- strsplit(x[[1]]," " )
-#View(y)
+View(y)
 breesstats$Name <- paste0(y[2],', ',y[1])
 p$Name
  
@@ -127,6 +127,11 @@ setkey(brees,Name)
 setkey(breesstats,Name)
 result <- merge(brees,breesstats, all.x = TRUE)
 View(result)
+
+
+x <- strsplit(passingstats[1]$Opp, ' ')
+y <- tolower(strsplit(x[[1]]," " ))
+View(y)
 ####################################################################
 
 x <- strsplit(w1p$Name," ")
@@ -155,4 +160,12 @@ alldefense <- merge(defensivePlayers,defenses,all.x = TRUE,allow.cartesian = TRU
 matrix = merge(players,alldefense, by='TeamID',allow.cartesian = TRUE)
 write.csv(matrix,'ffd6.csv')
 UploadToMLStudio(myexp,'ffd6.csv')
+
+
+
+
+
+
+
+plot(result$Yds,result$Scored.Labels, with(result, text(sr~dpi, labels = row.names(result), pos = 4)))
 

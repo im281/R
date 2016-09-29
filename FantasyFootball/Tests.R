@@ -46,6 +46,8 @@ p <- p[which(p$Name %like% "Defense" == FALSE)]
 
 #Mergin tables######################################################################################################
 
+#Each week get the latest defensive stats and retrain the model
+
 #2015 run pass and total defense
 runD15 <- data.table(read.csv('2015RunD.txt',sep = "\t"))
 passD15 <- data.table(read.csv('2015PassD.txt',sep = "\t"))
@@ -84,13 +86,13 @@ defenses <- AssignTeamIDsDefense(d)
 
 #join the tables on Team ID. Player and the opposing team
 matrix = merge(players,defenses, by='TeamID',allow.cartesian = TRUE)
-write.csv(matrix,'ffd6.csv')
-UploadToMLStudio(myexp,'ffd6.csv')
+write.csv(matrix,'ffd7.csv')
+UploadToMLStudio(myexp,'ffd7.csv')
 
 #End Training
 
 #Experiment##########################################################################################################
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-26-16409-Mon-Thurs-players-list.csv'
+path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-09-29-16456-players-W4-Thurs-Sun-list.csv'
 t <- data.table(read.csv(path,stringsAsFactors = FALSE))
 # remove injured players
 t <- t[which(t$Injury.Indicator == "")]
@@ -105,13 +107,13 @@ myexp <- merge(experiment,defenses, by='TeamID',allow.cartesian = TRUE)
 #rename points and salary columns
 colnames(myexp)[colnames(myexp)=="FD.Points"] <- "FD.points"
 colnames(myexp)[colnames(myexp)=="FD.Salary"] <- "FD.salary"
-write.csv(myexp,'Week4_MonTHurs_Exp.csv')
-UploadToMLStudio(myexp,'Week4_MonTHurs_Exp.csv')
+write.csv(myexp,'Week4_Thurs_Sun_Exp.csv')
+UploadToMLStudio(myexp,'Week4_Thurs_Sun_Exp.csv')
 #####################################################################################################################
 
 #Optimize the lineup##############################################################
 #csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
-csvFile <- 'W4_MonThurs_P.csv'
+csvFile <- 'W4_Thurs_Mon_FullModel_P.csv'
 data <- data.table(read.csv(csvFile))
 d <- OptimizeFBLineup(data)
 
