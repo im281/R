@@ -47,6 +47,9 @@ setkey(Departments,Department)
 # perform the join using the merge function
 Result <- merge(Employees,Departments, all.x=TRUE)
 
+#remove a table's column's character (For example, this might have 75T and we want 75)
+levels(runD16$Lng) <- sub("T", "", levels(runD16$Lng))
+
 
 ###########################################################
 

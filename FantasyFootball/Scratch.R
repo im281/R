@@ -163,9 +163,38 @@ UploadToMLStudio(myexp,'ffd6.csv')
 
 
 
-
-
-
-
 plot(result$Yds,result$Scored.Labels, with(result, text(sr~dpi, labels = row.names(result), pos = 4)))
+
+
+
+
+w1 <- read.csv('Week1.txt', sep = ';',stringsAsFactors = FALSE)
+w2 <- read.csv('Week2.txt', sep = ';',stringsAsFactors = FALSE)
+w3 <- read.csv('Week3.txt', sep = ';',stringsAsFactors = FALSE)
+library(TTR)
+
+
+w4$MA <- 'MA'
+
+#Modify column names
+#################################################################
+
+rd <- '2016RunD.txt'
+pd <- '2016passD.txt'
+td <- '2016totalD.txt'
+
+rd <- data.table(read.csv('2016RunD.txt',sep = "\t"))
+
+names(rd)[names(rd)=="Rk"] <- "RushDefenseRank"
+names(rd)[names(rd)=="Pts.G"] <- "RusingPointsperGameGAllowed"
+names(rd)[names(rd)=="TotPts"] <- "TotalRushingPointsAllowed"
+names(rd)[names(rd)=="Att"] <- "TotalRushAttemptsAgainst"
+names(rd)[names(rd)=="Att.G"] <- "RushAttemptsAgainstPerGame"
+names(rd)[names(rd)=="Yds"] <- "RushYdsAllowed"
+names(rd)[names(rd)=="Avg"] <- "AverageYardsPerCarryAllowed"
+
+
+pd <- data.table(read.csv('2016PassD.txt',sep = "\t"))
+td <- data.table(read.csv('2016TotalD.txt',sep ="\t"))
+
 
