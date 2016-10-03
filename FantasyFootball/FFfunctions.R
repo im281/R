@@ -547,8 +547,7 @@ AssignTeamIDs1 <- function(t){
 }
 ###############################################################
 
-UploadFanduelLineup <- function(t,stats,d,name){
-  final <- stats
+UploadFanduelLineup <- function(t,final,d,name){
   path <- t
   t <- data.table(read.csv(path,stringsAsFactors = FALSE))
   # remove injured players

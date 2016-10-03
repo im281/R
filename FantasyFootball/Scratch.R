@@ -183,18 +183,21 @@ rd <- '2016RunD.txt'
 pd <- '2016passD.txt'
 td <- '2016totalD.txt'
 
-rd <- data.table(read.csv('2016RunD.txt',sep = "\t"))
-
-names(rd)[names(rd)=="Rk"] <- "RushDefenseRank"
-names(rd)[names(rd)=="Pts.G"] <- "RusingPointsperGameGAllowed"
-names(rd)[names(rd)=="TotPts"] <- "TotalRushingPointsAllowed"
-names(rd)[names(rd)=="Att"] <- "TotalRushAttemptsAgainst"
-names(rd)[names(rd)=="Att.G"] <- "RushAttemptsAgainstPerGame"
-names(rd)[names(rd)=="Yds"] <- "RushYdsAllowed"
-names(rd)[names(rd)=="Avg"] <- "AverageYardsPerCarryAllowed"
+test <- GetLatestDefense(rd,pd,td,2016)
 
 
-pd <- data.table(read.csv('2016PassD.txt',sep = "\t"))
-td <- data.table(read.csv('2016TotalD.txt',sep ="\t"))
 
+names(ps)[names(ps)=="Att"] <- "PlayerPassingAttempts"
+names(ps)[names(ps)=="Comp"] <- "PlayerCompletions"
+names(ps)[names(ps)=="Yds"] <- "PlayerPassingYds"
+names(ps)[names(ps)=="TD"] <- "PlayerPassingTDs"
+names(ps)[names(ps)=="Int"] <- "PlayerInterceptions"
+names(ps)[names(ps)=="Sck"] <- "PlayerSacked"
+names(ps)[names(ps)=="Fum"] <- "PlayerFumbles"
+names(ps)[names(ps)=="Rate"] <- "PlayerPassRating"
+
+
+
+
+test <- data.table(read.csv('W3_TrainingData.csv'))
 

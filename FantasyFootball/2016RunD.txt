@@ -1,33 +1,33 @@
-Rk	Team	G	Pts/G	TotPts	Att	Att/G	Yds	Avg	Yds/G	TD	Lng	1st	1st%	20+	40+	FUM
+RunDRk	Team	G	Pts/G	TotPts	Att	Att/G	Yds	Avg	Yds/G	TD	Lng	1st	1st%	20+	40+	FUM
 1	Green Bay Packers	3	22.3	67	71	23.7	128	1.8	42.7	1	12	10	14.1	0	0	0
-2	Philadelphia Eagles	3	9	27	49	16.3	213	4.3	71.0	2	20	14	28.6	2	0	1
-3	New York Jets	3	26	78	65	21.7	215	3.3	71.7	1	24	15	23.1	1	0	2
-4	Pittsburgh Steelers	3	22	66	60	20.0	226	3.8	75.3	3	14	14	23.3	0	0	0
-5	New York Giants	3	20.3	61	73	24.3	232	3.2	77.3	1	13	16	21.9	0	0	1
-6	San Diego Chargers	3	24.3	73	56	18.7	245	4.4	81.7	4	24	18	32.1	1	0	1
-7	Minnesota Vikings	3	13.3	40	73	24.3	252	3.5	84.0	2	13	13	17.8	0	0	3
-8	Baltimore Ravens	3	14.7	44	68	22.7	258	3.8	86.0	2	85T	8	11.8	1	1	1
-9	Seattle Seahawks	3	12.3	37	76	25.3	263	3.5	87.7	3	34	12	15.8	1	0	1
-10	Carolina Panthers	3	23.3	70	79	26.3	271	3.4	90.3	3	28T	14	17.7	2	0	2
-10	New England Patriots	3	15	45	62	20.7	271	4.4	90.3	2	45	17	27.4	1	1	3
-12	Dallas Cowboys	3	20	60	55	18.3	273	5.0	91.0	1	36	13	23.6	2	0	1
-13	Indianapolis Colts	3	31.7	95	72	24.0	287	4.0	95.7	4	21T	15	20.8	1	0	0
-14	Buffalo Bills	3	22.7	68	86	28.7	294	3.4	98.0	5	22T	16	18.6	1	0	2
-14	Tampa Bay Buccaneers	3	33.7	101	85	28.3	294	3.5	98.0	3	22	14	16.5	1	0	0
-16	Los Angeles Rams	3	21	63	88	29.3	300	3.4	100.0	4	23	21	23.9	1	0	0
-17	Tennessee Titans	3	19	57	76	25.3	325	4.3	108.3	1	30	13	17.1	5	0	0
-18	Cincinnati Bengals	3	25	75	89	29.7	328	3.7	109.3	0	16	17	19.1	0	0	1
-18	Cleveland Browns	3	28	84	85	28.3	328	3.9	109.3	2	19	16	18.8	0	0	1
-20	Jacksonville Jaguars	3	28	84	82	27.3	329	4.0	109.7	3	28	19	23.2	3	0	0
-21	Detroit Lions	3	28.3	85	67	22.3	344	5.1	114.7	0	67	19	28.4	2	1	0
-22	Atlanta Falcons	3	30.3	91	76	25.3	360	4.7	120.0	2	26	22	28.9	1	0	0
-23	San Francisco 49ers	3	27.7	83	91	30.3	368	4.0	122.7	2	41T	19	20.9	2	1	1
-24	Kansas City Chiefs	3	16.3	49	88	29.3	369	4.2	123.0	2	21	18	20.5	1	0	1
-24	Washington Redskins	3	30.7	92	81	27.0	369	4.6	123.0	7	25	25	30.9	2	0	2
-26	Houston Texans	3	17.7	53	78	26.0	377	4.8	125.7	4	41T	14	17.9	5	1	3
-27	Denver Broncos	3	19	57	82	27.3	383	4.7	127.7	4	50	19	23.2	3	1	0
-28	Arizona Cardinals	3	21	63	84	28.0	399	4.8	133.0	4	49	23	27.4	4	1	5
-29	Oakland Raiders	3	26.3	79	80	26.7	408	5.1	136.0	2	36	25	31.3	1	0	2
-30	Chicago Bears	3	27.7	83	108	36.0	428	4.0	142.7	5	30	26	24.1	2	0	1
-31	Miami Dolphins	3	22.3	67	102	34.0	442	4.3	147.3	2	26	23	22.5	2	0	3
-32	New Orleans Saints	3	32	96	89	29.7	448	5.0	149.3	6	75T	24	27.0	4	2	1
+2	New York Jets	4	26.2	105	91	22.8	281	3.1	70.2	1	24	19	20.9	1	0	2
+3	Philadelphia Eagles	3	9	27	49	16.3	213	4.3	71.0	2	20	14	28.6	2	0	1
+4	New York Giants	3	20.3	61	73	24.3	232	3.2	77.3	1	13	16	21.9	0	0	1
+5	Pittsburgh Steelers	4	20	80	78	19.5	313	4.0	78.2	3	46	17	21.8	1	1	1
+6	Baltimore Ravens	4	18	72	87	21.8	320	3.7	80.0	2	85T	9	10.3	2	1	2
+7	Seattle Seahawks	4	13.5	54	96	24.0	321	3.3	80.2	3	34	16	16.7	1	0	1
+8	San Diego Chargers	4	27	108	90	22.5	328	3.6	82.0	7	24	24	26.7	1	0	1
+9	Minnesota Vikings	3	13.3	40	73	24.3	252	3.5	84.0	2	13	13	17.8	0	0	3
+10	Carolina Panthers	4	29.5	118	104	26.0	361	3.5	90.2	4	28T	21	20.2	2	0	2
+11	Dallas Cowboys	4	19.2	77	84	21.0	379	4.5	94.8	2	36	19	22.6	3	0	1
+12	Tampa Bay Buccaneers	4	32	128	117	29.2	383	3.3	95.8	4	22	18	15.4	1	0	0
+13	Buffalo Bills	4	17	68	108	27.0	384	3.6	96.0	5	22T	19	17.6	1	0	5
+14	Cincinnati Bengals	4	20.5	82	102	25.5	390	3.8	97.5	0	16	20	19.6	0	0	1
+15	New England Patriots	4	15.2	61	94	23.5	405	4.3	101.2	2	45	24	25.5	1	1	3
+16	Atlanta Falcons	4	31	124	91	22.8	409	4.5	102.2	2	26	25	27.5	2	0	0
+17	Los Angeles Rams	4	19	76	113	28.2	418	3.7	104.5	4	31	27	23.9	2	0	1
+18	Indianapolis Colts	4	31.2	125	101	25.2	423	4.2	105.8	5	21T	22	21.8	1	0	1
+18	Jacksonville Jaguars	4	27.8	111	107	26.8	423	4.0	105.8	4	28	26	24.3	3	0	0
+20	Arizona Cardinals	4	20	80	107	26.8	440	4.1	110.0	4	49	24	22.4	4	1	5
+20	Tennessee Titans	4	21	84	100	25.0	440	4.4	110.0	1	30	19	19.0	5	0	0
+22	Denver Broncos	4	16	64	108	27.0	455	4.2	113.8	5	50	22	20.4	3	1	2
+23	Detroit Lions	4	25.5	102	96	24.0	458	4.8	114.5	0	67	25	26.0	2	1	0
+24	Cleveland Browns	4	28.8	115	111	27.8	473	4.3	118.2	3	25	26	23.4	2	0	1
+25	New Orleans Saints	4	32.5	130	110	27.5	486	4.4	121.5	8	75T	29	26.4	4	2	3
+26	Chicago Bears	4	24.2	97	126	31.5	494	3.9	123.5	5	30	31	24.6	2	0	1
+27	Houston Texans	4	18.2	73	110	27.5	501	4.6	125.2	6	41T	22	20.0	5	1	3
+28	Kansas City Chiefs	4	23	92	114	28.5	518	4.5	129.5	3	44	22	19.3	2	1	1
+29	Miami Dolphins	4	22.2	89	139	34.8	519	3.7	129.8	2	26	27	19.4	2	0	5
+30	Washington Redskins	4	28	112	109	27.2	532	4.9	133.0	8	25	33	30.3	2	0	5
+31	Oakland Raiders	4	26.5	106	106	26.5	538	5.1	134.5	4	36	32	30.2	2	0	3
+32	San Francisco 49ers	4	26.8	107	130	32.5	562	4.3	140.5	3	41T	31	23.8	4	1	1

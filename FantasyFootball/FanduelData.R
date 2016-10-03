@@ -9,10 +9,6 @@ td <- '2016totalD.txt'
 #Get latest defensive statistics from text
 d <- GetLatestDefense(rd,pd,td,2016)
 
-#Upload the players, offensive stats and defensive stats
-#Train the model
-#UploadTrainingData(d,'W3_TrainingData.csv')
-
 path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-10-03-16453-players-list.csv'
 name <- 'W5_Mon_Thurs_Exp.csv'
 
@@ -171,26 +167,8 @@ names(k)[names(k)=="Fum"] <- "PlayerFumbles"
 
 f <- rbind(ps,rus,rec,k,fill=TRUE)
 f[,"TeamID"] <- 0
-final <- AssignTeamIDs(f)
-
-
-# setkey(final,Name,Week)
-# setkey(players,Name,Week)
-# finaltable <- merge(final,players,all.x = TRUE,allow.cartesian = TRUE)
-# names(finaltable)[names(finaltable)=="TeamID.x"] <- "TeamID"
-# setkey(finaltable,TeamID)
-# setkey(d,TeamID)
-# 
-# finalfinal <- merge(finaltable,d,all.x = TRUE,allow.cartesian = TRUE)
-# #Assign 0 to NAs
-# finalfinal[is.na(finalfinal)] <- 0
-# write.csv(finalfinal,'W4_TrainingData.csv')
-# UploadToMLStudio(finalfinal,'W4_TrainingData.csv')
-
+finalData <- AssignTeamIDs(f)
 
 # stats <- final
 # #Upload data for prediction
-UploadFanduelLineup(path,final,d,name)
-
-
-
+UploadFanduelLineup(path,finalData,d,name)

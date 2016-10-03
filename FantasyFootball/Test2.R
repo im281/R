@@ -178,7 +178,7 @@ setkey(d,TeamID)
 #2) merge the table with the Fanduel table
 #3) merge with defensive stats data which is called
 
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-10-02-16452-players-SunMonNight-list.csv'
+path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-10-02-16449-players-W4SunMain-list.csv'
 t <- data.table(read.csv(path,stringsAsFactors = FALSE))
 # remove injured players
 t <- t[which(t$Injury.Indicator == "")]
@@ -203,13 +203,13 @@ finalfinalexp <- finalfinalexp[which(!is.na(finalfinalexp$Pos))]
 
 #Assign 0 to NAs
 finalfinalexp[is.na(finalfinalexp)] <- 0
-write.csv(finalfinalexp,'W4_SunMon_Exp_BDT.csv')
-UploadToMLStudio(finalfinalexp,'W4_SunMon_Exp_BDT.csv')
+write.csv(finalfinalexp,'W4_SunMain_Exp_BDT.csv')
+UploadToMLStudio(finalfinalexp,'W4_SunMain_Exp_BDT.csv')
 #####################################################################################################################
 
 #Optimize the lineup##############################################################
 #csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
-csvFile <- 'W4_SunMon_BDT_P.csv'
+csvFile <- 'W5_Mon_Thurs_P.csv'
 data <- data.table(read.csv(csvFile))
 names(data)[names(data)=="TeamID.x"] <- "TeamID"
 result <- OptimizeFBLineupDFPredicted(data)
