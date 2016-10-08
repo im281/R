@@ -409,7 +409,7 @@ RunDFOptimizer <- function(x){
            1, # TE Min
            1, # K Max
            #1, # Defense
-           55000)                # By default, you get 60K to spend, so leave this number alone. but save 5k for a defense
+           55100)                # By default, you get 60K to spend, so leave this number alone. but save 5k for a defense
   
   sol <-
     Rglpk_solve_LP(
