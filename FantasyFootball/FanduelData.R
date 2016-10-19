@@ -9,8 +9,8 @@ td <- '2016totalD.txt'
 #Get latest defensive statistics from text
 d <- GetLatestDefense(rd,pd,td,2016)
 
-path <- 'C:/Users/Owner/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-10-03-16453-players-list.csv'
-name <- 'W5_Mon_Thurs_Exp.csv'
+path <- 'C:/Users/Owner/OneDrive/Source/Repos/R/FantasyFootball/Fanduel/FanDuel-NFL-2016-10-10-16509-players-list.csv'
+name <- 'test.csv'
 
 #read the player FFP tables######################################################################################
 #2016 stats
@@ -22,17 +22,19 @@ w3 <- read.csv('Week3.txt', sep = ';',stringsAsFactors = FALSE)
 w3$Week <- 3
 w4 <- read.csv('Week4.txt', sep = ';',stringsAsFactors = FALSE)
 w4$Week <- 4
+w4 <- read.csv('Week5.txt', sep = ';',stringsAsFactors = FALSE)
+w4$Week <- 5
 ###################################################################################################################
 
 #Fanduel Players 
 #append the tables on the row
-p <- data.table(rbind(w1,w2,w3,w4))
+p <- data.table(rbind(w1,w2,w3,w4,w5))
 
 #subset the player tables so it doesn't contain defensive data
 p <- p[which(p$Name %like% "Defense" == FALSE)]
 
 p[,"TeamID"] <- 0
-players <- AssignTeamIDs(p)
+#players <- AssignTeamIDs(p)
 
 #2016  offensive stats
 #passsing
@@ -44,11 +46,14 @@ w3p <- data.table(read.csv('Week3Passing.txt',sep = "\t", stringsAsFactors = FAL
 w3p$Week <- 3
 w4p <- data.table(read.csv('Week4Passing.txt',sep = "\t", stringsAsFactors = FALSE))
 w4p$Week <- 4
+w5p <- data.table(read.csv('Week5Passing.txt',sep = "\t", stringsAsFactors = FALSE))
+w5p$Week <- 5
 
 w1p$Team <- tolower(w1p$Team)
 w2p$Team <- tolower(w2p$Team)
 w3p$Team <- tolower(w3p$Team)
 w4p$Team <- tolower(w4p$Team)
+w5p$Team <- tolower(w5p$Team)
 
 #rushing
 w1ru <- data.table(read.csv('Week1Rushing.txt',sep = "\t", stringsAsFactors = FALSE))
@@ -59,11 +64,14 @@ w3ru <- data.table(read.csv('Week3Rushing.txt',sep = "\t", stringsAsFactors = FA
 w3ru$Week <- 3
 w4ru <- data.table(read.csv('Week4Rushing.txt',sep = "\t", stringsAsFactors = FALSE))
 w4ru$Week <- 4
+w5ru <- data.table(read.csv('Week5Rushing.txt',sep = "\t", stringsAsFactors = FALSE))
+w5ru$Week <- 5
 
 w1ru$Team <- tolower(w1ru$Team)
 w2ru$Team <- tolower(w2ru$Team)
 w3ru$Team <- tolower(w3ru$Team)
 w4ru$Team <- tolower(w4ru$Team)
+w5ru$Team <- tolower(w5ru$Team)
 
 #receiving
 w1re <- data.table(read.csv('Week1Receiving.txt',sep = "\t", stringsAsFactors = FALSE))
@@ -74,11 +82,14 @@ w3re <- data.table(read.csv('Week3Receiving.txt',sep = "\t", stringsAsFactors = 
 w3re$Week <- 3
 w4re <- data.table(read.csv('Week4Receiving.txt',sep = "\t", stringsAsFactors = FALSE))
 w4re$Week <- 4
+w5re <- data.table(read.csv('Week5Receiving.txt',sep = "\t", stringsAsFactors = FALSE))
+w5re$Week <- 5
 
 w1re$Team <- tolower(w1re$Team)
 w2re$Team <- tolower(w2re$Team)
 w3re$Team <- tolower(w3re$Team)
 w4re$Team <- tolower(w4re$Team)
+w5re$Team <- tolower(w5re$Team)
 
 #Kicking
 w1k <- data.table(read.csv('Week1Kicking.txt',sep = "\t", stringsAsFactors = FALSE))
@@ -89,50 +100,61 @@ w3k <- data.table(read.csv('Week3Kicking.txt',sep = "\t", stringsAsFactors = FAL
 w3k$Week <- 3
 w4k <- data.table(read.csv('Week4Kicking.txt',sep = "\t", stringsAsFactors = FALSE))
 w4k$Week <- 4
+w5k <- data.table(read.csv('Week5Kicking.txt',sep = "\t", stringsAsFactors = FALSE))
+w5k$Week <- 5
 
 w1k$Team <- tolower(w1k$Team)
 w2k$Team <- tolower(w2k$Team)
 w3k$Team <- tolower(w3k$Team)
-w3k$Team <- tolower(w3k$Team)
+w4k$Team <- tolower(w4k$Team)
+w5k$Team <- tolower(w5k$Team)
 ####################################################################################################################
 w1pf <- FormatNames(w1p)
 w2pf <- FormatNames(w2p)
 w3pf <- FormatNames(w3p)
 w4pf <- FormatNames(w4p)
+w5pf <- FormatNames(w5p)
 
 w1ruf <- FormatNames(w1ru)
 w2ruf <- FormatNames(w2ru)
 w3ruf <- FormatNames(w3ru)
 w4ruf <- FormatNames(w4ru)
+w5ruf <- FormatNames(w5ru)
 
 w1ref <- FormatNames(w1re)
 w2ref <- FormatNames(w2re)
 w3ref <- FormatNames(w3re)
 w4ref <- FormatNames(w4re)
+w5ref <- FormatNames(w5re)
 
 w1kf <- FormatNames(w1k)
 w2kf <- FormatNames(w2k)
 w3kf <- FormatNames(w3k)
 w4kf <- FormatNames(w4k)
+w5kf <- FormatNames(w5k)
 
 setkey(w1pf,Name)
 setkey(w2pf,Name)
 setkey(w3pf,Name)
 setkey(w4pf,Name)
+setkey(w5pf,Name)
 setkey(w1ruf,Name)
 setkey(w2ruf,Name)
 setkey(w3ruf,Name)
 setkey(w4ruf,Name)
+setkey(w5ruf,Name)
 setkey(w1ref,Name)
 setkey(w2ref,Name)
 setkey(w3ref,Name)
 setkey(w4ref,Name)
+setkey(w5ref,Name)
 setkey(w1kf,Name)
 setkey(w2kf,Name)
 setkey(w3kf,Name)
 setkey(w4kf,Name)
+setkey(w5kf,Name)
 
-passingstats <-rbind(w1pf,w2pf,w3pf,w4pf)
+passingstats <-rbind(w1pf,w2pf,w3pf,w4pf,w5pf)
 ps<- FormatStatsTable(passingstats)
 names(ps)[names(ps)=="Att"] <- "PlayerPassingAttempts"
 names(ps)[names(ps)=="Comp"] <- "PlayerCompletions"
@@ -144,21 +166,21 @@ names(ps)[names(ps)=="Fum"] <- "PlayerFumbles"
 names(ps)[names(ps)=="Rate"] <- "PlayerPassRating"
 
 
-rushingstats <-rbind(w1ruf,w2ruf,w3ruf,w4ruf)
+rushingstats <-rbind(w1ruf,w2ruf,w3ruf,w4ruf,w4ruf)
 rus<- FormatStatsTable(rushingstats)
 names(rus)[names(rus)=="Att"] <- "PlayerRushingAttempts"
 names(rus)[names(rus)=="Yds"] <- "PlayerRushingYds"
 names(rus)[names(rus)=="TD"] <- "PlayerRushingTDs"
 names(rus)[names(rus)=="Fum"] <- "PlayerFumbles"
 
-receivingstats <- rbind(w1ref,w2ref,w3ref,w4ref)
+receivingstats <- rbind(w1ref,w2ref,w3ref,w4ref,w5ref)
 rec <- FormatStatsTable(receivingstats)
 names(rec)[names(rec)=="Rec"] <- "PlayerReceptions"
 names(rec)[names(rec)=="Yds"] <- "PlayerReceivingYds"
 names(rec)[names(rec)=="TD"] <- "PlayerReceivingTDs"
 names(rec)[names(rec)=="Fum"] <- "PlayerFumbles"
 
-kickingstats <- rbind(w1kf,w2kf,w3kf,w4kf)
+kickingstats <- rbind(w1kf,w2kf,w3kf,w4kf,w5kf)
 k <- FormatStatsTable(kickingstats)
 names(k)[names(k)=="Rec"] <- "PlayerReceptions"
 names(k)[names(k)=="Yds"] <- "PlayerReceivingYds"
@@ -172,3 +194,14 @@ finalData <- AssignTeamIDs(f)
 # stats <- final
 # #Upload data for prediction
 UploadFanduelLineup(path,finalData,d,name)
+
+
+#Optimize the lineup##############################################################
+#csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
+csvFile <- 'W5_MonTHurs_P.csv'
+data <- data.table(read.csv(csvFile))
+names(data)[names(data)=="TeamID.x"] <- "TeamID"
+#using boeasted decision trees
+result <- OptimizeFBLineup(data)
+
+

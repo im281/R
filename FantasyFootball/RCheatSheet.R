@@ -17,6 +17,10 @@ test1 <- final[which(final$Name %like% "Defense" == FALSE)]
 
 #subset table 
 t1 <- p0[which(p0$Name %like% "Cousins")]
+
+#Unique column names
+f <- f[,unique(names(f)),with=FALSE]
+
 ###########################################################
 
 #Table manipulation########################################
@@ -64,6 +68,35 @@ x <- strsplit('Mohtashemi Iman'," ")
 y <- strsplit(x[[1]]," " )
 View(y)
 paste0(y[2],', ',y[1])
+
+#Vectorized loops
+#############################################################
+#This is a bad loop with 'growing' data
+set.seed(42)
+m = 10
+n = 10
+
+#Create matrix of normal random rumbers
+mymat <- replicate(m,rnorm(n))
+
+#Transform into data frame
+mydframe <- data.frame(mymat)
+
+
+#regular loop
+for(i in 1:m){
+  for(j in 1:n){
+    mydframe[i,j] <- mydframe[i,j] + 10*sin(0.75*pi)
+    print(mydframe)
+  }
+}
+
+#Vectorized operation
+mydframe <- mydframe + 10*sin(0.75*pi)
+mydframe
+
+
+
 
 
 

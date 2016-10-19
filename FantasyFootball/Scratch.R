@@ -201,3 +201,43 @@ names(ps)[names(ps)=="Rate"] <- "PlayerPassRating"
 
 test <- data.table(read.csv('W3_TrainingData.csv'))
 
+# Multiple Linear Regression Example 
+fit <- lm(d$Scored.Labels ~ d$PassDefenseRating + d$PlayerPassingYds + d$FD.salary, data=d)
+summary(fit) # show results
+
+
+colnames(d)
+
+# Multiple Linear Regression Example 
+fit <- lm(test$Scored.Labels ~ . , data=test)
+summary(fit) # show results
+
+test <- d[c(34:93)]
+
+
+y <- c(1,4,6)
+d <- data.frame(y = y, x1 = c(4,-1,3), x2 = c(3,9,8), x3 = c(4,-4,-2))
+mod <- lm(y ~ ., data = d)
+summary(mod)
+
+
+
+
+
+
+
+rush <- data.table(read.csv('rush.csv'))
+pass <- data.table(read.csv('pass.csv'))
+
+
+setkey(rush,Name,Week,Team,Oppt,Opp,Score)
+setkey(pass,Name,Week,Team,Oppt,Opp,Score)
+
+t <- merge(rush,pass,all = TRUE)
+View(t)
+
+df$y <- ifelse(df$z == "A", x[1], ifelse(df$z == "B", x[2], ifelse(df$z == "C", x[3], NA)))
+
+t$Team.x[is.na(t$Team.x)] <- t$Team.y
+
+

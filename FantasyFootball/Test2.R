@@ -209,13 +209,16 @@ UploadToMLStudio(finalfinalexp,'W4_SunMain_Exp_BDT.csv')
 
 #Optimize the lineup##############################################################
 #csvFile < 'THE FILE PATH TO CSV FILE WITH EXTENSION'
-csvFile <- 'testdata.csv'
+csvFile <- 'W5_SunMonNight_P.csv'
 data <- data.table(read.csv(csvFile))
 names(data)[names(data)=="TeamID.x"] <- "TeamID"
-result <- OptimizeFBLineupDFPredicted(data)
-
 #using boeasted decision trees
 result <- OptimizeFBLineup(data)
+
+
+
+result <- OptimizeFBLineupDFPredicted(data)
+
 
 ##TESTS############################################################################################################
 

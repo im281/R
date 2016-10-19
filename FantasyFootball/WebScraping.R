@@ -16,3 +16,11 @@ txt[[u]] <- ie[["document"]][["body"]][["innerText"]]
 ie$Quit() 
 print(txt) 
 
+
+
+test <- "http://www.nfl.com/stats/categorystats?tabSeq=2&defensiveStatisticCategory=TEAM_PASSING&conference=ALL&role=OPP&season=2016&seasonType=REG&d-447263-s=PASSING_NET_YARDS_GAME_AVG&d-447263-o=1&d-447263-n=1"
+srts <-htmlParse(test)
+class(srts)
+d <- readHTMLTable(srts,stringsAsFactors = FALSE)
+View(d)
+
