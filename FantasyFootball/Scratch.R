@@ -241,3 +241,13 @@ df$y <- ifelse(df$z == "A", x[1], ifelse(df$z == "B", x[2], ifelse(df$z == "C", 
 t$Team.x[is.na(t$Team.x)] <- t$Team.y
 
 
+test <- data.table(read.csv('C:/Users/Owner/OneDrive/Source/Repos/R/FantasyFootball/Data/runD2016.csv'))
+View(test)
+
+#Rushing column has longests run with a T (for touchdown)
+levels(test$Lng) <- sub("T", "", levels(test$Lng))
+View(test)
+
+str(levels(test$Lng))
+
+str(test)
