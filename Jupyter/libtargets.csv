@@ -1,0 +1,22 @@
+metabolite,class,Chemical Formula,RT (min),[M+H]+
+ornithine,aminoacid,C5H12N2O2,0.77,133.0972
+glycine,aminoacid,C2H5NO2,0.83,76.0393
+aspartic acid,aminoacid,C4H7NO4,0.85,134.0448
+creatinine,aminoacid derivative,C4H7N3O,0.9,114.0662
+uracil,nucleobase,C4H4N2O2,1.28,113.0346
+methionine,aminoacid,C5H11NO2S,1.44,150.0583
+nicotinamide,vitamin,C6H6N2O,1.63,123.0552
+isoleucine,aminoacid,C6H13NO2,2.19,132.1019
+leucine,aminoacid,C6H13NO2,2.33,132.1019
+adenosine,nucleoside,C10H13N5O4,2.49,268.104
+phenylalanine,aminoacid,C9H11NO2,3.46,166.0863
+kynurenic acid,organic acid,C10H7NO3,6.01,190.0498
+folic acid,vitamin,C19H19N7O6,6.66,442.147
+biotin,vitamin,C10H16N2O3S,7.58,245.0954
+riboflavin,vitamin,C17H20N4O6,7.92,377.1451
+liothyronine,thyroid hormone,C15H12I3NO4,9.6,651.7971
+thyroxine,thyroid hormone,C15H11I4NO4,10.02,777.6945
+17?-hydroxyprogesterone,steroid,C21H30O3,10.5,331.2265
+taurocholic acid,bile acid,C26H45NO7S,10.82,516.2986
+glycodeoxycholate,bile acid,C26H43NO5,11.42,450.321
+18:1 LysoPC,lipid,C26H52NO7P,12.75,522.3554
